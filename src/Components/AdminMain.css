@@ -1,0 +1,10 @@
+#tab-ad {
+    
+    position: center;
+    border-collapse: collapse;
+    margin-left: 6%;
+    margin-right: 1%;
+}
+td, tr {
+    text-align: center;
+}
