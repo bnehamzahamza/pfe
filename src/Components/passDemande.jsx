@@ -1,32 +1,31 @@
 import React, { Component } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {} from 'react-bootstrap';
-
 export default class passDemande extends Component {
 
 
     render() {
         return (
             <div className="container">
-                <form>
-                    <label>
-                        destinataire
-                    </label>
-                    <input type="text" className="form-control" value="DMG" />
-                    <label>
-                        dégre d'urgence
-                    </label>
-                    <input type="text" className="form-control" />
-                    <label>
-                        lieu
-                    </label>
-                    <input type="text" className="form-control" />
-                    <label>
-                        date
-                    </label>
-                    <input type="date" />
-                </form>
-            </div>
+            <form id="divLog">
+
+    <h3 className="text-center">connexion</h3>
+
+    <div className="form-group">
+        <label>pseudo</label>
+        <input className="form-control" placeholder="nom" value={this.state.nom} onChange={this.changeNom} />
+    </div>
+
+    <div className="form-group">
+        <label>mot de passe</label>
+        <input type="password" className="form-control" placeholder="mdp"
+        value={this.state.mdp}  onChange={this.changeMdp} />
+    </div>
+
+
+    <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.logTest}>Connexion</button>
+    <p className="forgot-password text-right">
+    </p>
+    </form>
+</div>
         )
     }
 }
