@@ -25,7 +25,6 @@ export default class passDemande extends Component {
                         date
                     </label>
                     <input type="date" />
-
                 </form>
             </div>
         )
