@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import "./Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {} from 'react-bootstrap';
+import EmployeeServices from '../Services/EmployeeServices';
 
 export default class Login extends Component {
     constructor(props) {
@@ -12,6 +13,9 @@ export default class Login extends Component {
             mdp : ''
 
         }
+        this.changeMdp = this.changeMdp.bind(this);
+        this.changeNom = this.changeNom.bind(this);
+        this.logTest = this.logTest.bind(this);
     }
 
 
@@ -21,6 +25,18 @@ export default class Login extends Component {
     changeNom= (event) => {
         this.setState({nom: event.target.value});
     }
+
+    logTest = (e) => {
+        let tests = {nom : this.state.nom, poste : this.state.mdp};
+        console.log('tests => ' + JSON.stringify(tests));
+
+        EmployeeServices.checkLog(this.state.nom,this.state.mdp).then(res =>
+           {this.props.history.push('/home');
+        } 
+            )
+    }
+
+
 
 
     render() {
@@ -42,7 +58,7 @@ export default class Login extends Component {
                 </div>
 
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block">Connexion</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.logTest}>Connexion</button>
                 <p className="forgot-password text-right">
                 </p>
                 </form>

@@ -26,9 +26,9 @@ export default class AdminMain extends Component {
                 <table id="tab-ad" className="table table-bordered">
                     <thead className="thead-dark">
                         <tr>
-                        <th>émeteur</th>
-                        <th>departement</th>
-                        <th>action</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Poste</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,8 +36,8 @@ export default class AdminMain extends Component {
                         this.state.employees.map(
                             employees =>
                         <tr key={employees.id}>
-                            <td>{employees.firstName}</td>
-                            <td>{employees.lastName}</td>
+                            <td>{employees.nom}</td>
+                            <td>{employees.prenom}</td>
                             <td>{employees.post}</td>
                         </tr>
                         )
