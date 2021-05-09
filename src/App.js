@@ -1,7 +1,7 @@
 import './App.css';
-import AdminMain from './Components/AdminMain';
-// import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Login from './Components/Login';
+import passDemande from './Components/passDemande';
+
+
 
 
 
@@ -10,7 +10,7 @@ import Login from './Components/Login';
 function App() {
   return (
     <div>
-      <AdminMain />
+        <passDemande />
     </div>
   )
 }
