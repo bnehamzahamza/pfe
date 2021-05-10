@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import DemandeServices from '../Services/DemandeServices';
 import './PassDemande.css';
 export default class PassDemande extends Component {
 
@@ -12,7 +13,7 @@ export default class PassDemande extends Component {
             lieu : '',
             degre_urgence : '',
             description : '',
-            EMP_ID: '',
+            EMP_ID: '1',
             date_d: date,
 
 
@@ -43,6 +44,7 @@ export default class PassDemande extends Component {
         let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
         date_d: this.state.date_d,etat: 'initial'};
         console.log('Demande => '+JSON.stringify(Demande));
+        DemandeServices.setDemande(Demande);
     }
 
 
