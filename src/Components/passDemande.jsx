@@ -5,13 +5,15 @@ export default class PassDemande extends Component {
     constructor(props) {
         super(props)
 
+        var today = new Date(),
+        date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
         this.state = {
             destinataire : '',
             lieu : '',
             degre_urgence : '',
             description : '',
             EMP_ID: '',
-            date_d: Date().toLocaleString(),
+            date_d: date,
 
 
         }
