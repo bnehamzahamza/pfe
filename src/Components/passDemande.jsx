@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './PassDemande.css';
 export default class PassDemande extends Component {
 
     constructor(props) {
@@ -8,7 +9,9 @@ export default class PassDemande extends Component {
             destinataire : '',
             lieu : '',
             degre_urgence : '',
-            description : ''
+            description : '',
+            EMP_ID: '',
+            date_d: Date().toLocaleString(),
 
 
         }
@@ -16,6 +19,7 @@ export default class PassDemande extends Component {
         this.changeLieu = this.changeLieu.bind(this);
         this.changeUrgence = this.changeUrgence.bind(this);
         this.changeDescription = this.changeDescription.bind(this);
+        this.saveDemande = this.saveDemande.bind(this);
 
     }
 
@@ -32,7 +36,12 @@ export default class PassDemande extends Component {
         this.setState({description: event.target.value});
     }
 
-    
+    saveDemande = (e) => {
+        e.preventDefault();
+        let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
+        date_d: this.state.date_d,etat: 'initial'};
+        console.log('Demande => '+JSON.stringify(Demande));
+    }
 
 
     render() {
@@ -61,7 +70,7 @@ export default class PassDemande extends Component {
 
                 <div className="form-group">
                     <label>description</label>
-                    <input type="text" className="form-control" placeholder="decription"
+                    <textarea type="text" className="form-control" placeholder="decription"
                     value={this.state.description}  onChange={this.changeDescription} />
                 </div>
 
