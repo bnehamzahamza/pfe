@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-export default class passDemande extends Component {
+export default class PassDemande extends Component {
 
     constructor(props) {
         super(props)
