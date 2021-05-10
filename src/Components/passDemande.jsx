@@ -6,15 +6,15 @@ export default class PassDemande extends Component {
     constructor(props) {
         super(props)
 
-        var today = new Date(),
-        date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
+        var today = new Date()
+        
         this.state = {
             destinataire : '',
             lieu : '',
             degre_urgence : '',
             description : '',
-            EMP_ID: '1',
-            date_d: date,
+            date_d: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            employee_id : []
 
 
         }
@@ -44,7 +44,9 @@ export default class PassDemande extends Component {
         let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
         date_d: this.state.date_d,etat: 'initial'};
         console.log('Demande => '+JSON.stringify(Demande));
-        DemandeServices.setDemande(Demande);
+        DemandeServices.setDemande(Demande).then((res) => {
+            this.props.history.push("/");
+        })
     }
 
 

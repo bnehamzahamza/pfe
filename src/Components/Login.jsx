@@ -10,7 +10,8 @@ export default class Login extends Component {
 
         this.state = {
             nom : '' ,
-            mdp : ''
+            mdp : '',
+            employees : []
 
         }
         this.changeMdp = this.changeMdp.bind(this);
@@ -30,10 +31,13 @@ export default class Login extends Component {
         let tests = {nom : this.state.nom, poste : this.state.mdp};
         console.log('tests => ' + JSON.stringify(tests));
 
-        EmployeeServices.checkLog(this.state.nom,this.state.mdp).then(res =>
-           {this.props.history.push('/home');
+        EmployeeServices.checkLog(tests.nom,tests.mdp).then((res) =>
+           {    this.setState({employees: res.data})
+               this.props.history.push('/accueil');
         } 
             )
+
+        
     }
 
 
@@ -54,7 +58,7 @@ export default class Login extends Component {
                 <div className="form-group">
                     <label>mot de passe</label>
                     <input type="password" className="form-control" placeholder="mdp"
-                    value={this.state.mdp}  onChange={this.changeMdp} />
+                    value={this.state.mdp} onChange={this.changeMdp} />
                 </div>
 
 

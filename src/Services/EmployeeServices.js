@@ -7,8 +7,8 @@ class EmployeeServices {
        return axios.get(BASE_API_EMPLOYEE_URL +'/');
     }
 
-    checkLog(Nom,Poste){
-        return axios.get(BASE_API_EMPLOYEE_URL +'/login' ,Nom,Poste);
+    checkLog(login,mdp){
+        return axios.get(BASE_API_EMPLOYEE_URL +'/login' ,login,mdp);
     }
 }
 
