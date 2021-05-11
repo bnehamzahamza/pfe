@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import DemandeServices from '../Services/DemandeServices';
 import './PassDemande.css';
+import * as moment from 'moment';
 export default class PassDemande extends Component {
 
     constructor(props) {
         super(props)
 
-        var today = new Date()
-        
+        var today = new Date();
+        var newDate = moment(today, 'YYYY-MM-DD');
         this.state = {
             destinataire : '',
             lieu : '',
             degre_urgence : '',
             description : '',
-            date_d: today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
+            date_d: newDate ,
             employee_id : []
 
 
@@ -42,10 +43,10 @@ export default class PassDemande extends Component {
     saveDemande = (e) => {
         e.preventDefault();
         let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
-        date_d: this.state.date_d,etat: 'initial'};
+        date_D: this.state.date_d,etat: 'en cours d\'etude'};
         console.log('Demande => '+JSON.stringify(Demande));
         DemandeServices.setDemande(Demande).then((res) => {
-            this.props.history.push("/");
+            this.props.history.push("/admin");
         })
     }
 

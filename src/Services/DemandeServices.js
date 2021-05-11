@@ -10,6 +10,10 @@ class DemandeServices {
     setDemande(demande){
         return axios.post(BASE_API_EMPLOYEE_URL +'/' ,demande);
     }
+
+    getDemandeById(demandeId){
+        return axios.get(BASE_API_EMPLOYEE_URL + '/' + demandeId);
+    }
 }
 
 export default new DemandeServices();

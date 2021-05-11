@@ -9,13 +9,13 @@ export default class Login extends Component {
         super(props)
 
         this.state = {
-            nom : '' ,
+            login : '' ,
             mdp : '',
             employees : []
 
         }
         this.changeMdp = this.changeMdp.bind(this);
-        this.changeNom = this.changeNom.bind(this);
+        this.changeLogin = this.changeLogin.bind(this);
         this.logTest = this.logTest.bind(this);
     }
 
@@ -23,15 +23,15 @@ export default class Login extends Component {
     changeMdp= (event) => {
         this.setState({mdp: event.target.value});
     }
-    changeNom= (event) => {
-        this.setState({nom: event.target.value});
+    changeLogin= (event) => {
+        this.setState({login: event.target.value});
     }
 
     logTest = (e) => {
-        let tests = {nom : this.state.nom, poste : this.state.mdp};
+        let tests = {login : this.state.login, mdp : this.state.mdp};
         console.log('tests => ' + JSON.stringify(tests));
 
-        EmployeeServices.checkLog(tests.nom,tests.mdp).then((res) =>
+        EmployeeServices.checkLog(this.state.login,this.state.mdp).then((res) =>
            {    this.setState({employees: res.data})
                this.props.history.push('/accueil');
         } 
@@ -52,7 +52,7 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>pseudo</label>
-                    <input className="form-control" placeholder="nom" value={this.state.nom} onChange={this.changeNom} />
+                    <input className="form-control" placeholder="nom" value={this.state.login} onChange={this.changeLogin} />
                 </div>
 
                 <div className="form-group">

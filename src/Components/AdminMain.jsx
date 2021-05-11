@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import EmployeeServices from '../Services/EmployeeServices';
+import DemandeServices from '../Services/DemandeServices';
 import "./AdminMain.css";
 
 
@@ -8,27 +8,35 @@ export default class AdminMain extends Component {
         super(props)
 
         this.state = {
-            employees :[]
+            employees :[],
+            id : ''
 
         }
+        this.consulteDemande = this.consulteDemande.bind(this);
     }
 
     componentDidMount(){
-        EmployeeServices.getEmployees().then((res) => {
+        DemandeServices.getDemande().then((res) => {
             this.setState({employees: res.data})
         })
+    }
+    consulteDemande(id){
+        this.props.history.push(`/details/${id}`);
     }
 
 
     render() {
         return (
+            <div className="container">
             <div className="row">
                 <table id="tab-ad" className="table table-bordered">
                     <thead className="thead-dark">
                         <tr>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Poste</th>
+                        <th>Date</th>
+                        <th>lieu</th>
+                        <th>degre d'urgence</th>
+                        <th>etat</th>
+                        <th>action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,14 +44,18 @@ export default class AdminMain extends Component {
                         this.state.employees.map(
                             employees =>
                         <tr key={employees.id}>
-                            <td>{employees.nom}</td>
-                            <td>{employees.prenom}</td>
-                            <td>{employees.post}</td>
+                            <td>{employees.date_D}</td>
+                            <td>{employees.lieu}</td>
+                            <td>{employees.degre_urgence}</td>
+                            <td>{employees.etat}</td>
+                            <td><button onClick={() =>this.consulteDemande(employees.id)} className="btn btn-primary">Consulter</button>
+                            </td>
                         </tr>
                         )
                     }
                     </tbody>
                 </table>
+            </div>
             </div>
         )
     }
