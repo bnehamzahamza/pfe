@@ -14,6 +14,11 @@ class DemandeServices {
     getDemandeById(demandeId){
         return axios.get(BASE_API_EMPLOYEE_URL + '/' + demandeId);
     }
+
+    updateDemande(demandeId,etat){
+        return axios.put(BASE_API_EMPLOYEE_URL + '/' + demandeId, etat)
+    }
+
 }
 
 export default new DemandeServices();

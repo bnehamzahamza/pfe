@@ -1,5 +1,31 @@
 #div_all {
-    margin-top: 8%;
+    position:relative;
+
+    border-style: groove; 
+    background-color: lightgrey;
+    margin-top: 10%;
+    margin-bottom: 20%;
+    margin-left: 45%;
+    
+    right: 10%;
+    width: fit-content; 
+}
+
+button {
     display: block;
-    position: inherit;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+#div_in {
+    position: relative;
+    
+    
+
+    
+
+    
+    
 }
