@@ -3,7 +3,7 @@ import DemandeServices from '../Services/DemandeServices';
 import "./AdminMain.css";
 
 
-export default class AdminMain extends Component {
+export default class ListDemandeRes extends Component {
     constructor(props) {
         super(props)
 
@@ -18,7 +18,6 @@ export default class AdminMain extends Component {
     componentDidMount(){
         DemandeServices.getDemande().then((res) => {
             this.setState({employees: res.data})
-            console.log("demande => "+JSON.stringify(this.state.employees));
            
         })
     }

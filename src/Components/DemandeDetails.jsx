@@ -38,8 +38,8 @@ export default class DemandeDetails extends Component {
         {
             return (
                 <div>
-                    <button className="btn btn-danger" onClick={() => this.changeEtat(this.state.id,this.state.refuser)}>refuser</button>
-                    <button className="btn btn-success" onClick={() => this.changeEtat(this.state.id,this.state.realisation)}>initialiser</button>
+                    <button className="btn btn-danger" onClick={() => this.changeEtat(this.state.id,this.state.refuser)} >refuser</button>
+                    <button className="btn btn-success" onClick={() => this.changeEtat(this.state.id,this.state.realisation)} >initialiser</button>
                     <button className="btn btn-warning" onClick={() => this.this.changeEtat(this.state.id,this.state.reporter)}>reporter</button>
                 </div>
             )

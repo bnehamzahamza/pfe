@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import "./Login.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {} from 'react-bootstrap';
 import EmployeeServices from '../Services/EmployeeServices';
 
 export default class Login extends Component {
@@ -11,13 +9,15 @@ export default class Login extends Component {
         this.state = {
             login : '' ,
             mdp : '',
-            employees : []
+            employees : [],
+            isLogged : false
 
         }
         this.changeMdp = this.changeMdp.bind(this);
         this.changeLogin = this.changeLogin.bind(this);
         this.logTest = this.logTest.bind(this);
     }
+
 
 
     changeMdp= (event) => {
@@ -27,18 +27,23 @@ export default class Login extends Component {
         this.setState({login: event.target.value});
     }
 
-    logTest = (e) => {
-        let tests = {login : this.state.login, mdp : this.state.mdp};
-        console.log('tests => ' + JSON.stringify(tests));
 
-        EmployeeServices.checkLog(this.state.login,this.state.mdp).then((res) =>
-           {    this.setState({employees: res.data})
-               this.props.history.push('/accueil');
-        } 
+    logTest = () => {
+        
+        EmployeeServices.checkLog(this.state.login,this.state.mdp).then((res) => {
+            let result = res.data;
+            if(result === true)  {
+                this.props.history.push("/accueil");
+            }}
             )
+            
+
+        }
 
         
-    }
+            
+    
+
 
 
 
@@ -52,13 +57,13 @@ export default class Login extends Component {
 
                 <div className="form-group">
                     <label>pseudo</label>
-                    <input className="form-control" placeholder="nom" value={this.state.login} onChange={this.changeLogin} />
+                    <input className="form-control" placeholder="nom" onChange={this.changeLogin} />
                 </div>
 
                 <div className="form-group">
                     <label>mot de passe</label>
                     <input type="password" className="form-control" placeholder="mdp"
-                    value={this.state.mdp} onChange={this.changeMdp} />
+                     onChange={this.changeMdp} />
                 </div>
 
 

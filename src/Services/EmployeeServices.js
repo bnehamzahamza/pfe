@@ -8,7 +8,12 @@ class EmployeeServices {
     }
 
     checkLog(login,mdp){
-        return axios.get(BASE_API_EMPLOYEE_URL +'/login' ,login,mdp);
+        return axios.post(BASE_API_EMPLOYEE_URL +'/login' ,login,mdp);
+    }
+
+    addDemandeEmp(idEmp,newDemande){
+        return axios.put(BASE_API_EMPLOYEE_URL+'/setdemande/' + idEmp,newDemande);
+
     }
 }
 

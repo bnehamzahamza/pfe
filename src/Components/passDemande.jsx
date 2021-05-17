@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import DemandeServices from '../Services/DemandeServices';
+//import DemandeServices from '../Services/DemandeServices';
 import './PassDemande.css';
 import * as moment from 'moment';
+import EmployeeServices from '../Services/EmployeeServices';
+
 export default class PassDemande extends Component {
 
     constructor(props) {
@@ -15,7 +17,10 @@ export default class PassDemande extends Component {
             degre_urgence : '',
             description : '',
             date_d: newDate ,
-            employee_id : []
+            accord_responsable: 0,
+            accord_dmg: 0,
+            employee_id : [],
+            emp_id : 0
 
 
         }
@@ -26,6 +31,18 @@ export default class PassDemande extends Component {
         this.saveDemande = this.saveDemande.bind(this);
 
     }
+    componentDidMount(){
+        EmployeeServices.getEmployees().then((res) => {
+            this.setState({employee_id: res.data})
+            this.state.employee_id.map(emp => {
+                return this.setState({emp_id:emp.id})
+                
+            })
+           
+        })
+    }
+
+
 
     changeDestinataire= (event) => {
         this.setState({destinataire: event.target.value});
@@ -40,12 +57,17 @@ export default class PassDemande extends Component {
         this.setState({description: event.target.value});
     }
 
+   
     saveDemande = (e) => {
         e.preventDefault();
         let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
-        date_D: this.state.date_d,etat: 'en cours d\'etude'};
+        date_D: this.state.date_d,etat: 'en cours d\'etude',accord_dmg: Boolean(this.state.accord_dmg),accord_responsable:Boolean(this.state.accord_responsable)};
+        
         console.log('Demande => '+JSON.stringify(Demande));
-        DemandeServices.setDemande(Demande).then((res) => {
+
+        
+       
+        EmployeeServices.addDemandeEmp(this.state.emp_id,Demande).then(() => {
             this.props.history.push("/admin");
         })
     }
