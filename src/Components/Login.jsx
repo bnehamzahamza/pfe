@@ -2,11 +2,15 @@ import React, { Component } from 'react'
 import "./Login.css";
 import EmployeeServices from '../Services/EmployeeServices';
 
+
 export default class Login extends Component {
+    
     constructor(props) {
         super(props)
+        
 
         this.state = {
+            id:'',
             login : '' ,
             mdp : '',
             employees : [],
@@ -16,6 +20,7 @@ export default class Login extends Component {
         this.changeMdp = this.changeMdp.bind(this);
         this.changeLogin = this.changeLogin.bind(this);
         this.logTest = this.logTest.bind(this);
+        
     }
 
 
@@ -28,17 +33,29 @@ export default class Login extends Component {
     }
 
 
-    logTest = () => {
-        
+    logTest = (e) => {
+        e.preventDefault();
         EmployeeServices.checkLog(this.state.login,this.state.mdp).then((res) => {
-            let result = res.data;
-            if(result === true)  {
-                this.props.history.push("/accueil");
-            }}
+            let result = res.data
+            this.setState(
+                ()=>{
+                    return {id:result.id};
+                 }
+                 
+             );
+             this.pushingTool(this.state.id);
+           }
             )
-            
 
-        }
+            
+    }
+    pushingTool(id) {
+        this.props.history.push(`/accueil/${id}`);
+    } 
+    
+    
+   
+    
 
         
             

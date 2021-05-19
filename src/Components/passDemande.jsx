@@ -20,7 +20,7 @@ export default class PassDemande extends Component {
             accord_responsable: 0,
             accord_dmg: 0,
             employee_id : [],
-            emp_id : 0
+            emp_id : this.props.match.params.id
 
 
         }
@@ -31,15 +31,9 @@ export default class PassDemande extends Component {
         this.saveDemande = this.saveDemande.bind(this);
 
     }
+    
     componentDidMount(){
-        EmployeeServices.getEmployees().then((res) => {
-            this.setState({employee_id: res.data})
-            this.state.employee_id.map(emp => {
-                return this.setState({emp_id:emp.id})
-                
-            })
-           
-        })
+        console.log('id => '+JSON.stringify(this.state.emp_id));
     }
 
 
@@ -60,6 +54,7 @@ export default class PassDemande extends Component {
    
     saveDemande = (e) => {
         e.preventDefault();
+        
         let Demande = {destinataire: this.state.destinataire,lieu: this.state.lieu,degre_urgence: this.state.degre_urgence,description: this.state.description,
         date_D: this.state.date_d,etat: 'en cours d\'etude',accord_dmg: Boolean(this.state.accord_dmg),accord_responsable:Boolean(this.state.accord_responsable)};
         

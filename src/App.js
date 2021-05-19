@@ -20,7 +20,7 @@ function App() {
       <Router>
         <Switch>
           <Route path = "/" exact component={Login}></Route>
-          <Route path ="/accueil" exact component={PassDemande} ></Route>
+          <Route path ="/accueil/:id" exact component={PassDemande} ></Route>
           <Route path ="/admin" exact component={AdminMain} ></Route>
           <Route path ="/details/:id" exact component={DemandeDetails} ></Route>
           <Route path ="/demanderes" exact component={ListDemandeRes} ></Route>
