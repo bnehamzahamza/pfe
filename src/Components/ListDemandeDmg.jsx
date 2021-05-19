@@ -3,7 +3,7 @@ import DemandeServices from '../Services/DemandeServices';
 import "./AdminMain.css";
 
 
-export default class ListDemandeRes extends Component {
+export default class ListDemandeDmg extends Component {
     constructor(props) {
         super(props)
 
@@ -18,12 +18,12 @@ export default class ListDemandeRes extends Component {
     }
 
     componentDidMount(){
-        DemandeServices.getDemandeRes().then((res) => {
+        DemandeServices.getDemandeDmg().then((res) => {
             this.setState({employees:res.data});
         })
     }
     consulteDemande(id){
-        this.props.history.push(`/detailsresp/${id}`);
+        this.props.history.push(`/detailsdmg/${id}`);
     }
 
 

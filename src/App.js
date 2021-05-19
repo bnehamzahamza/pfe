@@ -5,6 +5,10 @@ import Login from './Components/Login';
 import AdminMain from './Components/AdminMain';
 import DemandeDetails from './Components/DemandeDetails';
 import ListDemandeRes from './Components/ListDemandeRes';
+import ListDemandeDmg from './Components/ListDemandeDmg';
+import DemandeDetailsResp from './Components/DemandeDetailsResp';
+import DemandeDetailsDmg from './Components/DemandeDetailsDmg';
+import AffectationSc from './Components/AffectationSc';
 
 
 
@@ -19,7 +23,11 @@ function App() {
           <Route path ="/accueil" exact component={PassDemande} ></Route>
           <Route path ="/admin" exact component={AdminMain} ></Route>
           <Route path ="/details/:id" exact component={DemandeDetails} ></Route>
-          <Route path ="/resdemande" exact component={ListDemandeRes} ></Route>
+          <Route path ="/demanderes" exact component={ListDemandeRes} ></Route>
+          <Route path ="/demandedmg" exact component={ListDemandeDmg} ></Route>
+          <Route path ="/detailsresp/:id" exact component={DemandeDetailsResp} ></Route>
+          <Route path ="/detailsdmg/:id" exact component={DemandeDetailsDmg} ></Route>
+          <Route path ="/affectationSc/:id" exact component={AffectationSc} ></Route>
       </Switch>
       </Router>
     </div>
