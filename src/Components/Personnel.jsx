@@ -7,7 +7,7 @@ export default class Personnel extends Component {
 
         this.changeNom = this.changeNom.bind(this);
         this.changeQte = this.changeQte.bind(this);
-        
+        this.changePrix = this.changePrix.bind(this);
         this.autreF = this.autreF.bind(this);    
 
 
@@ -15,7 +15,8 @@ export default class Personnel extends Component {
             id : this.props.match.params.id ,
             demande: [],
             Nom:'',
-            qte:''
+            qte:'',
+            prix:''
 
         }
            
@@ -30,10 +31,14 @@ export default class Personnel extends Component {
         this.setState({qte:event.target.value});
     }
 
+    changePrix= (event) =>{
+        this.setState({prix:event.target.value});
+    }
+
 
     autreF = (e) => {
         e.preventDefault();
-        let Materiel = {specialite:this.state.Nom,nbre_heure:this.state.qte}
+        let Materiel = {specialite:this.state.Nom,nbre_heure:this.state.qte,prix:this.state.prix}
         console.log("fourniture => "+JSON.stringify(Materiel));
         BesoinsServices.setPersonnelByBesoinId(this.state.id,Materiel).then((res)=>{
             let resultat = res.data
@@ -53,6 +58,10 @@ export default class Personnel extends Component {
                     <div>
                     <label>nombres d'heures</label>
                     <input type="text" value={this.state.qte} onChange={this.changeQte} className="form-control" />
+                    </div>
+                    <div>
+                    <label>prix par heure</label>
+                    <input type="text" value={this.state.prix} onChange={this.changePrix} className="form-control" />
                     </div>
                     <div>
                         

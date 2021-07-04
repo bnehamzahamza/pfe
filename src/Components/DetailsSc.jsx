@@ -3,7 +3,9 @@ import DemandeServices from '../Services/DemandeServices'
 import './DemandeDetails.css'
 
 export default class DetailsSc extends Component {
+    
     constructor(props) {
+        
         super(props)
 
         this.state = {
@@ -18,7 +20,8 @@ export default class DetailsSc extends Component {
 
         }
 
-        this.changeEtat = this.changeEtat.bind(this)
+        this.changeEtat = this.changeEtat.bind(this);
+        this.refuser = this.refuser.bind(this);
         
     }
 
@@ -34,14 +37,19 @@ export default class DetailsSc extends Component {
     
 
     changeEtat(id,etats){
-        
-            let Demande = {id:this.state.id,destinataire: this.state.demande.destinataire,lieu: this.state.demande.lieu,degre_urgence: this.state.demande.degre_urgence,description: this.state.demande.description,
-                date_D: this.state.demande.date_d,etat: etats};
+            let dem = {etat:etats}
     
-            DemandeServices.updateDemande(id,Demande)
+            DemandeServices.updateDemande(id,dem)
             if(etats === 'en cours de realisation'){
-                this.props.history.push(`/besoins/${id}`);
+                this.props.history.push(`/pageSc/${id}`);
         }
+    }
+
+    refuser(id){
+        
+        DemandeServices.deleteDemande(id).then(() => 
+        this.props.history.push('/demandedmg')
+        )
     }
 
 
@@ -71,9 +79,9 @@ export default class DetailsSc extends Component {
                 <div id="div_in">
                 <h5>changer l'etat : </h5>
                 <div>
-                    <button className="btn btn-danger" onClick={() => this.changeEtat(this.state.id,this.state.refuser)} >refuser</button>
-                    <button className="btn btn-success" onClick={() => this.changeEtat(this.state.id,this.state.realisation)} >initialiser</button>
-                    <button className="btn btn-warning" onClick={() => this.this.changeEtat(this.state.id,this.state.reporter)}>reporter</button>
+                    <button className="btn btn-danger" onClick={() => this.changeEtat(this.state.id)} >refuser</button>
+                    <button className="btn btn-success" onClick={() => this.changeEtat(this.state.id,this.state.realisation)} >accepter</button>
+                    <button className="btn btn-warning" onClick={() => this.changeEtat(this.state.id,this.state.reporter)}>reporter</button>
                 </div>
                 </div>
 

@@ -47,5 +47,25 @@ class BesoinsServices {
         return axios.put("http://localhost:8082/besoins/setmb/"+id,materiel)
     }
 
+    setDateFinale(id,besoin){
+        return axios.put("http://localhost:8082/besoins/setdatef/?id=" + id, besoin);
+    }
+
+    getDateDiff(date1,date2){
+        return axios.get("http://localhost:8082/besoins/datediff?date1="+date1+"&date2="+date2);
+    }
+
+    //get all Costs in details
+
+    getCostFourniture(besoin){
+        return axios.post("http://localhost:8082/besoins/getfrcost", besoin);
+    }
+    getCostPersonnel(besoin){
+        return axios.post("http://localhost:8082/besoins/getprcost", besoin);
+    }
+    getCostMateriel(besoin){
+        return axios.post("http://localhost:8082/besoins/getmtcost", besoin);
+    }
+
 }
 export default new BesoinsServices();

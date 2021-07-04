@@ -31,4 +31,18 @@
     text-align: left;
     padding: 16px;
   }
+
+  #finis {
+    margin-top: -180px;
+    float:right;
+    margin-right: 20px;
+    
+  }
+
+
+  #th-pers{
+    margin-left: 200px !important;
+  }
+
+
   

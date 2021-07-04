@@ -1,0 +1,17 @@
+
+
+
+
+#select{
+    border: 0px ;
+    border-bottom: 2px solid rgb(119, 119, 202);
+    
+  }
+  
+  #select:focus {
+    outline: none;
+  }
+
+  li{
+    list-style: none;
+  }

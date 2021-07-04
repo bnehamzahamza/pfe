@@ -1,31 +1,19 @@
 import React, { Component } from 'react'
-import "./Login.css";
-import EmployeeServices from '../Services/EmployeeServices';
-import AuthEmp from '../Auth/AuthEmp';
+import AuthDmg from '../../Auth/AuthDmg';
+import DmgServices from '../../Services/DmgServices';
 import swal from 'sweetalert';
 
-export default class Login extends Component {
-    
-    constructor(props) {
+export default class LoginDmg extends Component {
+    constructor(props){
         super(props)
-        
-
         this.state = {
-            id:'',
             login : '' ,
             mdp : '',
             employees : []
-
-
-
         }
         this.changeMdp = this.changeMdp.bind(this);
         this.changeLogin = this.changeLogin.bind(this);
-        this.logTest = this.logTest.bind(this);
-        
     }
-
-
 
     changeMdp= (event) => {
         this.setState({mdp: event.target.value});
@@ -37,18 +25,15 @@ export default class Login extends Component {
 
     logTest = (e) => {
         e.preventDefault();
-        EmployeeServices.checkLog(this.state.login,this.state.mdp).then((res) => {
+        DmgServices.CheckLogDmg(this.state.login,this.state.mdp).then((res) => {
             let result = res.data
             if(result.id != null){
-                var urlCrypt = require('url-crypt')('~{ry*I)==yU/]9<7DPk!Hj"R#:-/Z7(hTBnlRS=4CXF');
-                var resCrypt = urlCrypt.cryptObj(result.id)
-                console.log("id crypté => "+JSON.stringify(resCrypt))
-                console.log("AuthenticatedBefore => "+JSON.stringify(AuthEmp.isAuthenticated()))
-                AuthEmp.login(() => {
-                    console.log("AuthenticatedAfter => "+JSON.stringify(AuthEmp.isAuthenticated()))
-                    this.props.history.push(`/employee-land/${resCrypt}`);
+                console.log("AuthenticatedBefore => "+JSON.stringify(AuthDmg.isAuthenticated()))
+                AuthDmg.login(() => {
+                    console.log("AuthenticatedAfter => "+JSON.stringify(AuthDmg.isAuthenticated()))
+                    this.props.history.push('/accueil-dmg');
                 })
-
+               
             }
             else {
                 swal({
@@ -57,31 +42,19 @@ export default class Login extends Component {
                     icon: "warning",
                     button: "éssayer",
                   });
-            } 
-           }
-            )
-
-            
+            }
+        })
     }
 
     
-   
-    
-
-        
-            
-    
-
-
-
-
 
     render() {
         return (
-            <div className="container">
+            <div>
+                 <div className="container">
                         <form id="divLog">
 
-                <h3 className="text-center">DEMANDEUR</h3>
+                <h3 className="text-center">DMG</h3>
 
                 <div className="form-group">
                     <label>pseudo</label>
@@ -100,6 +73,7 @@ export default class Login extends Component {
                 </p>
                 </form>
                 
+            </div>
             </div>
         )
     }

@@ -19,6 +19,10 @@ class EmployeeServices {
     getEmpById(id){
         return axios.get(BASE_API_EMPLOYEE_URL+'/'+id);
     }
+    
+    getDeps(){
+        return axios.get(BASE_API_EMPLOYEE_URL + '/get/dep');
+    }
 }
 
 export default new EmployeeServices();

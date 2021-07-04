@@ -15,8 +15,8 @@ class DemandeServices {
         return axios.get(BASE_API_EMPLOYEE_URL + '/' + demandeId);
     }
 
-    updateDemande(demandeId,etat){
-        return axios.put(BASE_API_EMPLOYEE_URL + '/' + demandeId, etat)
+    updateDemande(demandeId,demande){
+        return axios.put(BASE_API_EMPLOYEE_URL + '/' + demandeId,demande)
     }
     //get demandes for responsable
     getDemandeRes(){
@@ -42,6 +42,38 @@ class DemandeServices {
         return axios.put(BASE_API_EMPLOYEE_URL + '/accorddmg/' + id ,demande)
     }
 
+    getDemandeByEmployee(id){
+        return axios.get(BASE_API_EMPLOYEE_URL + '/getbyempid/' + id);
+    }
+
+    getDemandeByEtat(etat){
+        return axios.get(BASE_API_EMPLOYEE_URL + '/getbyetat/' + etat)
+    }
+
+    FiltreDemandeByEtat(ListDemande,Etat){
+        return axios.post(BASE_API_EMPLOYEE_URL +'/filtrerbyetat/' + Etat,ListDemande);
+    }
+
+    getDemandeResById(demandes){
+        return axios.post(BASE_API_EMPLOYEE_URL +'/demanderes' , demandes);
+    }
+
+    getCouts(besoin){
+        return axios.put("http://localhost:8082/demande/get/couts", besoin);
+    }
+
+    getDemandeByDep(dep){
+        return axios.get(BASE_API_EMPLOYEE_URL + '/get/bydep?dep=' + dep);
+    }
+
+    //tri demande par date
+    TriDemandeAsc(List){
+        return axios.post(BASE_API_EMPLOYEE_URL + '/get/bydateasc',List);
+    }
+
+    TriDemandeDesc(List){
+        return axios.post(BASE_API_EMPLOYEE_URL + '/get/bydatedesc',List);
+    }
 
 }
 

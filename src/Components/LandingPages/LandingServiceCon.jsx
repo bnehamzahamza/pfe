@@ -1,24 +1,23 @@
 import React, { Component } from 'react'
-import AuthSc from '../Auth/AuthSc';
-import DemandeServices from '../Services/DemandeServices';
-import ServiceConcerneService from '../Services/ServiceConcerneService'
-import './LandingPages/LandingEmployee.css';
+import AuthSc from '../../Auth/AuthSc';
+import DemandeServices from '../../Services/DemandeServices'
+import ServiceConcerneService from '../../Services/ServiceConcerneService'
+import './LandingEmployee.css';
 
-export default class PageSc extends Component {
-    constructor(props) {
+export default class LandingServiceCon extends Component {
+    constructor(props){
         super(props)
-
+        
         this.state = {
-            id:this.props.match.params.id,
-            demandes: []
-
+            id : this.props.match.params.id,
+            demandes:[],
+            etat:'en cours de realisation'
         }
         this.consulteDemande = this.consulteDemande.bind(this);
         this.versReporter = this.versReporter.bind(this);
         this.versNouvelles = this.versNouvelles.bind(this);
         this.versEncours = this.versEncours.bind(this);
         this.versDeconnexion = this.versDeconnexion.bind(this);
-
 
     }
 
@@ -27,7 +26,7 @@ export default class PageSc extends Component {
         {
             let ListDem = res.data
             console.log('ListDemAvant => '+JSON.stringify(ListDem));
-            DemandeServices.FiltreDemandeByEtat(ListDem,"en cours d'etude").then((res) => {
+            DemandeServices.FiltreDemandeByEtat(ListDem,"en cours de realisation").then((res) => {
                 this.setState({demandes:res.data});
                 console.log('ListDemApres => '+JSON.stringify(this.state.demandes));
             })
@@ -37,8 +36,12 @@ export default class PageSc extends Component {
         )
     }
 
-    consulteDemande(id){
-        this.props.history.push(`/details-sc/${id}`);
+    consulteDemande(demande){
+        DemandeServices.getDemandeById(demande).then((res) => {
+            let dem = res.data
+    
+            this.props.history.push(`/besoins/${dem.id}`);
+        })
     }
 
     versEncours(){
@@ -50,7 +53,7 @@ export default class PageSc extends Component {
     }
 
     versReporter(){
-        this.props.history.push(`/sc-reporter/${this.props.match.params.id}`);
+        this.props.history.push(`/sc-reporter/${this.props.match.params.id}`)
     }
 
     versDeconnexion(){
@@ -59,22 +62,18 @@ export default class PageSc extends Component {
         })
     }
 
-   
-
-
     render() {
         return (
             <div>
-             <div>
+                <div>
                     <ul>
-                    <li><button onClick={()=> {this.versEncours()}}>demandes en cours</button></li>
-                    <li><button  class="active" onClick={()=> {this.versNouvelles()}}>nouvelles demandes</button></li>
+                    <li><button class="active" onClick={()=> {this.versEncours()}}>demandes en cours</button></li>
+                    <li><button onClick={()=> {this.versNouvelles()}}>nouvelles demandes</button></li>
                     <li><button onClick={()=> {this.versReporter()}}>demandes reportés</button></li>
                     <li><button id="deconnexion" onClick={()=> {this.versDeconnexion()}}>Deconnexion Service</button></li>
                     </ul>
                 </div>
-            <div>
-            <div className="row">
+                <div className="row">
                 <table id="tab-ad" className="table table-striped table-dark">
                     <thead className="thead-dark">
                         <tr>
@@ -89,7 +88,7 @@ export default class PageSc extends Component {
                         {
                         this.state.demandes.map(
                             demande =>
-                              
+                                
                                     <tr key={demande.id}>
                                     <td>{demande.date_D.slice(0,10)}</td>
                                     <td>{demande.lieu}</td>
@@ -104,7 +103,6 @@ export default class PageSc extends Component {
                            
                     </tbody>
                 </table>
-            </div>
             </div>
             </div>
         )

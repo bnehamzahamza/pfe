@@ -7,7 +7,7 @@ export default class Fourniture extends Component {
 
         this.changeNom = this.changeNom.bind(this);
         this.changeQte = this.changeQte.bind(this);
-        
+        this.changePrix = this.changePrix.bind(this);
         this.autreF = this.autreF.bind(this);    
 
 
@@ -15,7 +15,8 @@ export default class Fourniture extends Component {
             id : this.props.match.params.id ,
             demande: [],
             Nom:'',
-            qte:''
+            qte:'',
+            prix:''
 
         }
            
@@ -30,12 +31,19 @@ export default class Fourniture extends Component {
         this.setState({qte:event.target.value});
     }
 
+    changePrix= (event) =>{
+        this.setState({prix:event.target.value});
+    }
+
 
     autreF = (e) => {
         e.preventDefault();
-        let Fourniture = {nom:this.state.Nom,qte:this.state.qte}
+        let Fourniture = {nom:this.state.Nom,qte:this.state.qte,prix:this.state.prix}
         console.log("fourniture => "+JSON.stringify(Fourniture));
-        BesoinsServices.setFournitureByBesoinId(this.state.id,Fourniture).then((res)=>{
+        var urlCrypt = require('url-crypt')('~{ry*I)==yU/]9<7DPk!Hj"R#:-/Z7(hTBnlRS=4CXF');
+        var backagain = urlCrypt.decryptObj(this.state.id);
+        console.log("id décrypté "+JSON.stringify(backagain));
+        BesoinsServices.setFournitureByBesoinId(backagain,Fourniture).then((res)=>{
             let resultat = res.data
             let demande = resultat.demande_id
             this.props.history.push(`/besoins/${demande.id}`);
@@ -53,6 +61,10 @@ export default class Fourniture extends Component {
                     <div>
                     <label>quantité  du fourniture</label>
                     <input type="text" value={this.state.qte} onChange={this.changeQte} className="form-control" />
+                    </div>
+                    <div>
+                    <label>prix unitaire</label>
+                    <input type="text" value={this.state.prix} onChange={this.changePrix} className="form-control" />
                     </div>
                     <div>
                         

@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import './PassDemande.css';
 import * as moment from 'moment';
 import EmployeeServices from '../Services/EmployeeServices';
+import ResponsableServices from '../Services/ResponsableServices';
+import AuthEmp from '../Auth/AuthEmp';
 
 export default class PassDemande extends Component {
 
@@ -29,10 +31,15 @@ export default class PassDemande extends Component {
         this.changeUrgence = this.changeUrgence.bind(this);
         this.changeDescription = this.changeDescription.bind(this);
         this.saveDemande = this.saveDemande.bind(this);
+        this.versDemande = this.versDemande.bind(this);
+        this.versDeconnexion = this.versDeconnexion.bind(this);
+        this.versAccueil = this.versAccueil.bind(this);
+        
 
     }
     
     componentDidMount(){
+        console.log('dateI => '+JSON.stringify(this.state.date_d))
         console.log('id => '+JSON.stringify(this.state.emp_id));
     }
 
@@ -51,6 +58,19 @@ export default class PassDemande extends Component {
         this.setState({description: event.target.value});
     }
 
+    versAccueil(){
+        this.props.history.push(`/employee-land/${this.state.emp_id}`);
+    }
+    versDemande(){
+        this.props.history.push(`/accueil/${this.state.emp_id}`);
+    }
+    versDeconnexion(){
+        AuthEmp.logout(() => {
+            console.log("AuthenticatedAfter => "+JSON.stringify(AuthEmp.isAuthenticated()))
+            this.props.history.push(`/login-emp`);
+        })
+    }
+
    
     saveDemande = (e) => {
         e.preventDefault();
@@ -59,21 +79,38 @@ export default class PassDemande extends Component {
         date_D: this.state.date_d,etat: 'en cours d\'etude',accord_dmg: Boolean(this.state.accord_dmg),accord_responsable:Boolean(this.state.accord_responsable)};
         
         console.log('Demande => '+JSON.stringify(Demande));
-
+        let urlCrypt = require('url-crypt')('~{ry*I)==yU/]9<7DPk!Hj"R#:-/Z7(hTBnlRS=4CXF')
+        let backagain = urlCrypt.decryptObj(this.state.emp_id)
+        console.log("id décrypté "+JSON.stringify(backagain))
         
        
-        EmployeeServices.addDemandeEmp(this.state.emp_id,Demande).then(() => {
-            this.props.history.push("/admin");
+        EmployeeServices.addDemandeEmp(backagain,Demande).then((res) => {
+            let result = res.data
+            console.log('Employee => '+JSON.stringify(result))
+
+            ResponsableServices.setDemandeByEmp(result).then((res) => {
+                console.log('responsable => '+JSON.stringify(res.data))
+            })
+            this.props.history.push(`/employee-land/${this.state.emp_id}`);
         })
     }
 
 
     render() {
         return (
-            <div className="container">
+            <div>
+                <div>
+                <ul>
+                <li><button onClick={()=> {this.versAccueil()}}>accueil</button></li>
+                <li><button class="active" onClick={()=> {this.versDemande()}}>demande</button></li>
+                <li id="Dec"><button onClick={()=> {this.versDeconnexion()}}>Déconnexion</button></li>
+                </ul>
+            </div>
+            
+            <div className="container" id="form_demande">
                         <form id="divLog">
 
-                <h3 className="text-center">connexion</h3>
+                <h3 className="text-center">demande</h3>
 
                 <div className="form-group">
                     <label>destinataire</label>
@@ -99,10 +136,11 @@ export default class PassDemande extends Component {
                 </div>
 
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.saveDemande}>Connexion</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.saveDemande}>Passer</button>
                 <p className="forgot-password text-right">
                 </p>
                 </form>
+            </div>
             </div>
         )
     }

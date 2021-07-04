@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import DemandeServices from '../Services/DemandeServices';
-import "./AdminMain.css";
+
 
 
 export default class AdminMain extends Component {

@@ -8,7 +8,8 @@ export default class DemandeDetailsResp extends Component {
 
         this.state = {
             id : this.props.match.params.id ,
-           demande: []
+           demande: [],
+           link_id : this.props.match.params.id1
        
 
         }
@@ -30,7 +31,7 @@ export default class DemandeDetailsResp extends Component {
 accordRes(id,demande){
     //refuser et supprimer demande
     DemandeServices.acceptResp(id,demande).then(() => {
-        this.props.history.push('/demanderes')
+        this.props.history.push(`/demanderes/${this.state.link_id}`)
     })
 }
 
@@ -38,7 +39,7 @@ accordRes(id,demande){
 refuser(id){
     //changer accord_responsable vers vrai
     DemandeServices.deleteDemande(id).then(() => 
-    this.props.history.push('/demanderes')
+    this.props.history.push(`/demanderes/${this.state.link_id}`)
     )
 }
 
